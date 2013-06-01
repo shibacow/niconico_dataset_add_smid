@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+
 package org.altlaw.hadoop;
 
 /* From ant.jar, http://ant.apache.org/ */
@@ -47,22 +48,12 @@ import java.io.InputStreamReader;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
-
-/** Utility to convert tar files into Hadoop SequenceFiles.  The tar
- * files may be compressed with GZip or BZip2.  The output
- * SequenceFile will be stored with BLOCK compression.  Each key (a
- * Text) in the SequenceFile is the name of the file in the tar
- * archive, and its value (a BytesWritable) is the contents of the
- * file.
- *
- * <p>This class can be run at the command line; run without
- * arguments to get usage instructions.
- *
- * @author Stuart Sierra (mail@stuartsierra.com)
- * @see <a href="http://hadoop.apache.org/core/docs/r0.16.3/api/org/apache/hadoop/io/SequenceFile.html">SequenceFile</a>
- * @see <a href="http://hadoop.apache.org/core/docs/r0.16.3/api/org/apache/hadoop/io/Text.html">Text</a>
- * @see <a href="http://hadoop.apache.org/core/docs/r0.16.3/api/org/apache/hadoop/io/BytesWritable.html">BytesWritable</a>
+/**
+ * @author SHIBAO KOUICHIRO  <shibacow@gmail.com>
+ * Parase JSON add INFO
+ * コメントデータにファイル名や、SMIDを追加し、SequenceFileに追加する。
  */
+
 public class JsonReader {
     public JsonReader(){
 

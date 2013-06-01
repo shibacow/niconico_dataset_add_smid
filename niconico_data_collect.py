@@ -6,7 +6,7 @@ from urlparse import urljoin
 import os
 import urllib2
 def video_meta_data_fetch():
-    src='http://tcserv.nii.ac.jp/access/shibacow@gmail.com/b0cd188dc03daa68/nicocomm/data/video/video.html'
+    src='http://tcserv.nii.ac.jp/access/xxxxxxxxxxxxxxxx/nicocomm/data/video/video.html'
     d=pq(url=src)
     
     for i, a in enumerate(d('a')):
@@ -19,7 +19,7 @@ def video_meta_data_fetch():
         print i,fname
 
 def comment_meta_data_fetch():
-    src='http://tcserv.nii.ac.jp/access/shibacow@gmail.com/b0cd188dc03daa68/nicocomm/data/thread/thread.html'
+    src='http://tcserv.nii.ac.jp/access/xxxxxxxxxxxxxxxxxxxxxxxxxx/nicocomm/data/thread/thread.html'
     d=pq(url=src)
     
     for i, a in enumerate(d('a')):

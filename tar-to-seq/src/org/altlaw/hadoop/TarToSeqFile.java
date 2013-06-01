@@ -40,17 +40,12 @@ import java.util.ArrayList;
 import org.apache.tools.ant.DirectoryScanner;
 
 
-/** Utility to convert tar files into Hadoop SequenceFiles.  The tar
- * files may be compressed with GZip or BZip2.  The output
- * SequenceFile will be stored with BLOCK compression.  Each key (a
- * Text) in the SequenceFile is the name of the file in the tar
- * archive, and its value (a BytesWritable) is the contents of the
- * file.
- *
- * <p>This class can be run at the command line; run without
- * arguments to get usage instructions.
+/**
+ * このプログラムは、niconico動画データセット、コメントデータから、ファイル名をSMIDとして、データを追加し、tar.gzをseqファイルに変換するプログラムである。
+ * 
  *
  * @author Stuart Sierra (mail@stuartsierra.com)
+ * @auther SHIBAO KOUICHIRO shibacow@gmail.com
  * @see <a href="http://hadoop.apache.org/core/docs/r0.16.3/api/org/apache/hadoop/io/SequenceFile.html">SequenceFile</a>
  * @see <a href="http://hadoop.apache.org/core/docs/r0.16.3/api/org/apache/hadoop/io/Text.html">Text</a>
  * @see <a href="http://hadoop.apache.org/core/docs/r0.16.3/api/org/apache/hadoop/io/BytesWritable.html">BytesWritable</a>
@@ -97,6 +92,7 @@ public class TarToSeqFile {
             if (output != null) { output.close(); }
         }
     }
+    /* ファイルリストを、取得。.datをいれる*/
     private String[] listFiles(String dir){
 	DirectoryScanner scanner = new DirectoryScanner();
 	scanner.setIncludes(new String[]{"**/*.dat"});
@@ -133,7 +129,7 @@ public class TarToSeqFile {
     }
 
     public static void exitWithHelp() {
-        System.err.println("Usage: java org.altlaw.hadoop.TarToSeqFile <dir> <output>\n\n");
+        System.err.println("Usage: java org.altlaw.hadoop.TarToSeqFile <decompressed_dir> <output>\n\n");
         System.exit(1);
     }
 }
