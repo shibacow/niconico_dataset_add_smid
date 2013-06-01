@@ -1,6 +1,7 @@
-# ニコニコデータセットにsmidを追加し、hadoopのSequencefileに変換するツール
+# ニコニコデータセット変換ツール
 ## AIM
 これは、ニコニコ動画のコメントデータセットに対して、smidを追加し、加えて、tar.gzからhadoopのSequenceFileに変換するツールである。
+
 
 ##使い方
 コメントデータを、comment_srcと言うフォルダーを作って保存。また、comment_seqと言うフォルダーを作っておく。
@@ -10,4 +11,4 @@
 - python
  threadpool
 
--java
+- java
