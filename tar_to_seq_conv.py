@@ -24,6 +24,8 @@ def conv_file(src):
     f=os.path.basename(src)
     f=f.split('.')[0]
     d=f+'_seq'
+    if not os.path.isdir(dstdir):
+        os.mkdir(dstdir)
     dst=dstdir+os.sep+d
     ssrcdir=src.split('.')[0]
     opt='-Xrs -Xms=1024m -Xmx=1536m -XX:PermSize=128m -XX:MaxPermSize=128m -XX:NewSize=320m -XX:MaxNewSize=320m -XX:SurvivorRatio=2 -XX:TargetSurvivorRatio=80'
@@ -41,7 +43,7 @@ def callback(*args,**keys):
     msg=str(args)+str(keys)
     logging.info(msg)
 def main():
-    pool=threadpool.ThreadPool(6)
+    pool=threadpool.ThreadPool(4)
     l=glob(srcdir+os.sep+'*.tar.gz')
     args=sorted(l)
     requests=threadpool.makeRequests(conv_file,args,callback)
