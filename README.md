@@ -28,3 +28,7 @@ video_id,filenameが追加されている。
  threadpool
 
 - java
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/shibacow/niconico_dataset_add_smid/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
