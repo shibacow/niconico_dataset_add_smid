@@ -28,7 +28,7 @@ video_id,filenameが追加されている。
 
 
 ###必要なライブラリ
-- python2
+- python2系
   - threadpoolライブラリを利用
 
 - java
