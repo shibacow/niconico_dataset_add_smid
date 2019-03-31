@@ -16,16 +16,20 @@ def read_zip_file(f):
     with zipfile.ZipFile(f) as zp:
         for info in zp.infolist():
             if info.is_dir():continue
-            with zp.open(info,'r') as zfile:
-                zinfo=re.findall('\/(.+)\.jsonl',info.filename)[0]
-                for l in zfile.readlines():
-                    l=l.strip()
-                    try:
-                        d=json.loads(l)
-                        d['video_id']=zinfo
-                        yield d
-                    except json.decoder.JSONDecodeError as err:
-                        logging.error("f={} info={} l={} err={}".format(f,info,l,err))
+            try:
+                with zp.open(info,'r') as zfile:
+                    zinfo=re.findall('\/(.+)\.jsonl',info.filename)[0]
+                    for l in zfile.readlines():
+                        l=l.strip()
+                        try:
+                            d=json.loads(l)
+                            d['video_id']=zinfo
+                            yield d
+                        except json.decoder.JSONDecodeError as err:
+                             logging.error("f={} info={} l={} err={}".format(f,info,l,err))
+            except zipfile.BadZipFile as err:
+                logging.error("f={} info={} err={}".format(f,info,err))
+                            
 def conv_zip_file(f,i,sz):
     dst=re.findall('([\d]+)\.zip',f)
     dstf=dstdir+dst[0]+'.json.gz'
