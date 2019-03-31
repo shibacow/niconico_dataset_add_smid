@@ -1,0 +1,1 @@
+[{"name": "video_id", "type": "STRING", "mode": "NULLABLE"}, {"name": "date", "type": "TIMESTAMP", "mode": "NULLABLE"}, {"name": "content", "type": "STRING", "mode": "NULLABLE"}, {"name": "command", "type": "STRING", "mode": "NULLABLE"}, {"name": "vpos", "type": "INTEGER", "mode": "NULLABLE"}]

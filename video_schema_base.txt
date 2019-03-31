@@ -1,0 +1,13 @@
+length 	INTEGER 	NULLABLE 	
+watch_num 	INTEGER 	NULLABLE 	
+size_low 	INTEGER 	NULLABLE 	
+comment_num 	INTEGER 	NULLABLE 	
+description 	STRING 	NULLABLE 	
+size_high 	INTEGER 	NULLABLE 	
+tags 	STRING 	REPEATED 	
+title 	STRING 	NULLABLE 	
+mylist_num 	INTEGER 	NULLABLE 	
+video_id 	STRING 	NULLABLE 	
+upload_time 	TIMESTAMP 	NULLABLE 	
+category 	STRING 	NULLABLE 	
+file_type 	STRING 	NULLABLE 	
