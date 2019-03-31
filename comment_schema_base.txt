@@ -1,0 +1,5 @@
+video_id 	STRING 	NULLABLE 	
+date 	TIMESTAMP 	NULLABLE 	
+content 	STRING 	NULLABLE 	
+command 	STRING 	NULLABLE 	
+vpos 	INTEGER 	NULLABLE
