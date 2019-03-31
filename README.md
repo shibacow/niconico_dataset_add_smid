@@ -31,7 +31,7 @@ bq load --source_format=NEWLINE_DELIMITED_JSON nico_data_2018.video "gs://foo-ba
 python3 comment_convert.py
 ````
 
-を実行すれば、json.gz が作られる。それを `GCS`  へアップロードし、
+を実行すれば、json.gz が作られる。処理時間は、CPU 36core メモリ 24GBのマシンで、２時間程度だった。 。それを `GCS`  へアップロードし、
 
 
 ```sh
