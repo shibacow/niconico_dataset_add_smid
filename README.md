@@ -1,38 +1,55 @@
 # ニコニコデータセット変換ツール
 ## 目的
-これは、ニコニコ動画のコメントデータセットに対して、smidを追加し、加えて、tar.gzからhadoopのSequenceFileに変換するツールである。
+
+これは、ニコニコ動画のコメントデータセットに対して、smidを追加し、zipファイルから BigQueyにロードしやすいように、json.gzへ変更する。
+
 
 ##使い方
-まず最初に、二つフォルダーを作る。comment_srcフォルダーとcomment_seqを作る。
-comment_srcフォルダーにコメントデータを保存する。
-`python tar_to_seq_conv.py`
-を実行すれば、変換が始まる。tar.gzからhadoopのsequenceFile形式に変換する。
 
-##実行結果
-元データ
-```
-    {"date":1175712657,"no":1,"vpos":768,"comment":"\uff11","command":""}
-    {"date":1175712661,"no":2,"vpos":3208,"comment":"\u30d0\u30fc\u30ed\u30fc\u30fbu30fb\u30fb\u30fb\u30fb\u30fb\u30fb\u30fb\u30fb\u30fb\u30fb\u30fb\u30fb\u30fb\u30fb\u30fb\u30fb\u30fb\u30fb\u30fb\u30fb\u30fb","command":""}
-    {"date":1175712664,"no":3,"vpos":8657,"comment":"\u30a2\u30ea\u30d7\u30ed\u304cu51fa\u3066\u304f\u308b\u3053\u3068\u3092\u9858\u3063\u3066\u308b\u304c\u2026","command":""}
-```
+### 動画情報の変換
 
-編集データ
-```
-    {"vpos":768,"no":1,"command":"","filename":"comment_src\/0011\/sm110003.dat","video_id":"sm110003","comment":"１","date":1175712657}
-    {"vpos":3208,"no":2,"command":"","filename":"comment_src\/0011\/sm110003.dat","video_id":"sm110003","comment":"バーロー・・ ・・・・・・・・・・・・・・・・・・・・","date":1175712661}
-    {"vpos":8657,"no":3,"command":"","filename":"comment_src\/0011\/sm110003.dat","video_id":"sm110003","comment":"アリプロが出 てくることを願ってるが\u2026","date":1175712664}
-    {"vpos":12763,"no":4,"command":"","filename":"comment_src\/0011\/sm110003.dat","video_id":"sm110003","comment":"乾いた叫びがーーー","date":1175712690}
+まず最初に、`video` フォルダに、NIIから落としてきたvideoのzipを格納する。その際に `video_dst` フォルダーを作る。
+
+```py
+python3 video_convert.py
+````
+
+を実行すれば、json.gz が作られる。それを `GCS`  へアップロードし、
+
+
+```sh
+bq load --source_format=NEWLINE_DELIMITED_JSON nico_data_2018.video "gs://foo-bar/video/*.json.gz" video.json
 ```
 
-video_id,filenameが追加されている。
+とすれば良い。
+
+### コメント情報の変換
+
+まず最初に、`comment` フォルダに、NIIから落としてきたcommentのzipを格納する。その際に `comment_dst` フォルダーを作る。
+
+```py
+python3 comment_convert.py
+````
+
+を実行すれば、json.gz が作られる。それを `GCS`  へアップロードし、
 
 
-###必要なライブラリ
-- python2系
-  - threadpoolライブラリを利用
+```sh
+bq load --max_bad_records=1000 --source_format=NEWLINE_DELIMITED_JSON nico_data_2018.comment "gs://foo-bar/comment/*.json.gz" comment.json
+```
 
-- java
+とすれば良い。私が試したときは、コメントのロードは、20分程度で終わった。
 
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/shibacow/niconico_dataset_add_smid/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+## 補足
+
+コメントデータには、vposがintの値を超えているデータが存在し、そのため、まともに入らないデータもあった。
+
+元データの件数と、BigQueryに入った件数を比べると以下の通りであった。
+
+|	|元データ|BQロード|喪失レコード数|loss rate|
+| -------|----------------|--------------|---------|
+|コメント|3,773,083,461|3,772,018,854|1,064,607	0.02821583%|
+|動画情報|16,703,325|16,687,315|16,010|0.09584918%|
+
 
