@@ -29,7 +29,7 @@ def read_zip_file(f):
 def conv_zip_file(f,i,sz):
     dst=re.findall('([\d]+)\.zip',f)
     dstf=dstdir+dst[0]+'.json.gz'
-    if i%10==0:
+    if i%50==0:
         logging.info("start sz={} i={}  {}".format(sz,i,dstf))
     with gzip.GzipFile(dstf,'w') as gf:
         ls=[]
@@ -38,11 +38,15 @@ def conv_zip_file(f,i,sz):
             l=l+'\n'
             l=l.encode('utf-8')
             ls.append(l)
-        gf.writelines(ls)
-    if i%10==0:
+            if len(ls) > 1000:
+                gf.writelines(ls)
+                ls=[]
+        if ls:
+            gf.writelines(ls)
+    if i%50==0:
         logging.info("end sz={} i={} {}".format(sz,i,dstf))
 def main():
-    l=sorted(list(glob(src))[:200])
+    l=sorted(list(glob(src)))
     sz=len(l)
     with ProcessPoolExecutor() as executor:
         futures=[executor.submit(conv_zip_file,f,i,sz) for i,f in enumerate(l)]
