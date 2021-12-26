@@ -1,3 +1,14 @@
+# コメントをBigQueryへロードする
+
+dataflowを使って、ニコニコ動画のコメントをロードするシステム。
+
+# 使い方
+
+`load.sh`
+
+## shellの説明
+
+```sh
 #!/bin/bash
 
 # --flexRSGoal=SPEED_OPTIMIZED 
@@ -19,3 +30,5 @@ mvn compile exec:java -Dexec.mainClass=com.shibacow.nico.NicoCommentLoad \
      " \
      -Pdataflow-runner
  
+
+```
