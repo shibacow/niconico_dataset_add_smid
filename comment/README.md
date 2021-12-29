@@ -18,7 +18,7 @@ dataflowを使って、ニコニコ動画のコメントをロードするシス
 # --numWorkers=50 
 
 mvn compile exec:java -Dexec.mainClass=com.shibacow.nico.NicoCommentLoad \
-     -Dexec.args="--inputFile=gs://<your_gcs_bucket>/comment/0000.zip \
+     -Dexec.args="--inputFile=gs://<your_gcs_bucket>/comment/*.zip \
      --runner=DataflowRunner \
      --output=<your_dataset.table_name>  \
      --project=<your_project_id> \
