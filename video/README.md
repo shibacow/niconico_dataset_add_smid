@@ -10,14 +10,13 @@ jsonl.gzを読み込む。tagsはarrayで入れたかったため `d['tags']=d['
 python3 video_convert.py
 ````
 
-を実行すれば、json.gz が作られる。
+を実行すれば、`video_dst` に xxxx.json.gz が作られる。
 
 ### GCSへデータをアップロードする
 
 ```sh
-gsutil -m cp *.jsonl.gz gs://<foo-bar>/video/
+gsutil -m cp video_dst/*.jsonl.gz gs://<foo-bar>/video/
 ```
-
 
 ###  GCSからbigqueryへデータをロードする
 
