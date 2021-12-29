@@ -5,6 +5,10 @@
 ニコニコ動画のデータセットが[公開](https://www.nii.ac.jp/dsc/idr/nico/nico.html)された。
 分析するために、BigQUeryへデータをロードする。
 
+## 認証
+
+`GOOGLE_APPLICATION_CREDENTIALS`に ` gcloud auth application-default login` したあとの`config/gcloud/application_default_credentials.json` を指定する。
+
 ## 使い方
 
 - 動画情報(Vide)のロードの[README](./video/README.md)
