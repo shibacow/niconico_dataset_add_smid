@@ -9,6 +9,10 @@ sudo apt install default-jdk
 sudo apt install maven
 ```
 
+# 環境変数の設定
+
+環境変数　`GOOGLE_APPLICATION_CREDENTIALS` に `gcloud auth application-default login` したあとの `~/.config/gcloud/application_default_credentials.json` を指定する。
+
 # 使い方
 
 `load.sh`
