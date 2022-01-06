@@ -2,6 +2,13 @@
 
 dataflowを使って、ニコニコ動画のコメントをロードするシステム。
 
+# jdk maven インストール
+
+```
+sudo apt install default-jdk
+sudo apt install maven
+```
+
 # 使い方
 
 `load.sh`
