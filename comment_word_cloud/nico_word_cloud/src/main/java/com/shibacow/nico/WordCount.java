@@ -17,7 +17,9 @@
  */
 package com.shibacow.nico;
 import com.shibacow.nico.common.ExampleUtils;
-                                
+import com.shibacow.nico.common.Kuromoji;
+import java.util.List;
+
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.TextIO;
 import org.apache.beam.sdk.metrics.Counter;
@@ -36,6 +38,9 @@ import org.apache.beam.sdk.transforms.ParDo;
 import org.apache.beam.sdk.transforms.SimpleFunction;
 import org.apache.beam.sdk.values.KV;
 import org.apache.beam.sdk.values.PCollection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * An example that counts words in Shakespeare and includes Beam best practices.
@@ -82,6 +87,7 @@ import org.apache.beam.sdk.values.PCollection;
  * Shakespeare. You can override it and choose your own input with {@code --inputFile}.
  */
 public class WordCount {
+    private static final Logger LOG = LoggerFactory.getLogger(WordCount.class);
 
   /**
    * Concept #2: You can make your pipeline assembly code less verbose by defining your DoFns
@@ -101,8 +107,9 @@ public class WordCount {
       }
 
       // Split the line into words.
-      String[] words = element.split(ExampleUtils.TOKENIZER_PATTERN, -1);
+      //String[] words = element.split(ExampleUtils.TOKENIZER_PATTERN, -1);
       //String[] words = null;
+      final List<String> words=new Kuromoji().kuromojineologd(element);
 
       // Output each word encountered into the output PCollection.
       for (String word : words) {
@@ -117,6 +124,9 @@ public class WordCount {
   public static class FormatAsTextFn extends SimpleFunction<KV<String, Long>, String> {
     @Override
     public String apply(KV<String, Long> input) {
+      String a=input.getKey();
+      Long l = input.getValue();
+      LOG.info("a="+a+": "+l);
       return input.getKey() + ": " + input.getValue();
     }
   }
